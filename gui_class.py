@@ -1,6 +1,7 @@
 import tkinter
 import tkinter.font as f
 from tkinter import  ttk
+from tkinter import messagebox
 import chat
 
 from datetime import datetime
@@ -109,8 +110,11 @@ class GUI:
     def ask_url(self):
         url = self.url_input.get()
         #anka.setUrl("5qap5aO4i9A")
-        self.ankaApp.setUrl(url)
-        self.ankaApp.start()
+        state = self.ankaApp.setUrl(url)
+        if state == None:
+            messagebox.showerror("エラー","無効な配信idです")
+        else:
+            self.ankaApp.start()
 
     def update(self):
         self.currentAnka_n_label["text"] = f"{self.ankaApp._anchor}"
@@ -132,6 +136,9 @@ class GUI:
         text = self.textinput.get()
         ank = self.ankainput.get()
         hashs = self.getHash()
+        if not ank.isdecimal():
+            messagebox.showerror("エラー","数値を入力してください")
+            return 0
         texts = ttk.Label(self.anka_w_frm,text=text+f": >>{ank}",font=("Noto Sans JP","15","bold"))
         ankas = ttk.Label(self.anka_w_frm,text="--",font=("Noto Sans JP","15","bold"))
         reAnka = ttk.Button(self.anka_w_frm,text="再",width=3,command=lambda:self.reAnka(hashs))

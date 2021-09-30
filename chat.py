@@ -1,8 +1,8 @@
+from tkinter import Message
 import pytchat
 #https://github.com/taizan-hokuto/pytchat
 import threading
 import queue
-import schedule
 
 import numpy as np
 class Anka:
@@ -21,7 +21,11 @@ class Anka:
         self._nullarray = np.array([])
 
     def setUrl(self,liveurl):
-        self._chat = pytchat.create(liveurl)
+        try:
+            self._chat = pytchat.create(liveurl)
+            return 0
+        except pytchat.InvalidVideoIdException:
+            return None
 
     def readChat(self):
         while self._chat.is_alive():
