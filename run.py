@@ -12,19 +12,31 @@ def stop_watch(func) :
         print(f"{func.__name__}は{elapsed_time}秒かかりました")
         return result
     return wrapper
+
 @stop_watch
-def getVersion() -> str:
+def getdataFromGithub(file:str) -> bytes:
     token =  "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"
     g = Github(token)
     repo = g.get_repo("Kazuryu0907/ANKAChan")
-    file = "version.txt"
-    contents = repo.get_contents(file)
-    version = base64.b64decode(contents.content)
-    return version.decode("utf-8")
+    dir_contents = repo.get_dir_contents("/")
+    sha = 0
+    for dir in dir_contents:
+        print(dir.name)
+        if dir.name == file:
+            sha = dir.sha
+            break
+    if sha == 0:
+        return(None)
+    blob = repo.get_git_blob(sha)
+    #file = "version.txt"
+    # contents = repo.get_contents(path)
+    version = base64.b64decode(blob.content)
+    return version
 
 if __name__ == "__main__":
-    version = getVersion()
+    version = getdataFromGithub("gg.exe")
+    print(version)
     with open("version.txt") as f:
         clientV = f.read()
         if clientV != version:
-            
+            pass
