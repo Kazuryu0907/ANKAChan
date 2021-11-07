@@ -14,16 +14,22 @@ def stop_watch(func) :
     return wrapper
 
 @stop_watch
-def getdataFromGithub(file:str) -> bytes:
+def getdataFromGithub(path:str) -> bytes:
+    index = 0
+    f = path.split("/")
     token =  "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"
     g = Github(token)
     repo = g.get_repo("Kazuryu0907/ANKAChan")
-    dir_contents = repo.get_contents()
+    dir_contents = repo.get_dir_contents("/")
     sha = 0
     for dir in dir_contents:
-        if dir.name == file:
-            sha = dir.sha
-            break
+        if dir.name == f[index]:
+            index += 1
+            for d in dir:
+                if d.name == f[index]:
+                    print(d.name)
+                    sha = dir.sha
+                    break
     if sha == 0:
         return(None)
     blob = repo.get_git_blob(sha)
@@ -33,7 +39,7 @@ def getdataFromGithub(file:str) -> bytes:
     return version
 
 if __name__ == "__main__":
-    version = getdataFromGithub("gg.exe")
+    version = getdataFromGithub("dist/gg.exe")
     print(version)
     with open("version.txt") as f:
         clientV = f.read()
