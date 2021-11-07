@@ -18,10 +18,9 @@ def getdataFromGithub(file:str) -> bytes:
     token =  "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"
     g = Github(token)
     repo = g.get_repo("Kazuryu0907/ANKAChan")
-    dir_contents = repo.get_dir_contents("/")
+    dir_contents = repo.get_contents()
     sha = 0
     for dir in dir_contents:
-        print(dir.name)
         if dir.name == file:
             sha = dir.sha
             break
