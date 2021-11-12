@@ -22,6 +22,8 @@ class Anka:
 
     def setUrl(self,liveurl):
         try:
+            self._anchor = 0
+            self.lastspeedi = 0
             self._chat = pytchat.create(liveurl)
             return 0
         except pytchat.InvalidVideoIdException:

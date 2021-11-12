@@ -42,8 +42,9 @@ class GUI:
         self.main_w.after(5000,self.update_speed)
 
     def setup(self):
-        self.main_w.title("Anka")
-        self.anka_w.title("Anka Window")
+        self.main_w.title("AnkaChan☆ controller")
+        self.anka_w.title("AnkaChan☆")
+        #self.main_w.iconbitmap(r"")
         self.main_w.geometry("500x240")
         self.anka_w.geometry("500x240")
 
@@ -53,7 +54,7 @@ class GUI:
         self.main_frm.grid(column=0,row=0,sticky=tkinter.NSEW,padx=5,pady=10)
         self.anka_frm.grid(column=0,row=3,sticky=tkinter.NSEW,padx=5,pady=10)
         
-        self.url_label = ttk.Label(self.main_frm,text="配信id")
+        self.url_label = ttk.Label(self.main_frm,text="配信url")
         self.url_input = ttk.Entry(self.main_frm,width=30)
         self.url_btn = ttk.Button(self.main_frm,text="接続",command=self.ask_url)
    
@@ -109,11 +110,11 @@ class GUI:
 
     def ask_url(self):
         url = self.url_input.get()
-        #anka.setUrl("5qap5aO4i9A")
         state = self.ankaApp.setUrl(url)
         if state == None:
             messagebox.showerror("エラー","無効な配信idです")
         else:
+            messagebox.showinfo("成功","接続成功")
             self.ankaApp.start()
 
     def update(self):
