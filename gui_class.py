@@ -6,7 +6,7 @@ import chat
 
 from datetime import datetime
 import hashlib
-
+import time
 class PlaceholderEntry(ttk.Entry):
     def __init__(self, container, placeholder, *args, **kwargs):
         super().__init__(container, *args, style="Placeholder.TEntry", **kwargs)
@@ -31,6 +31,9 @@ class GUI:
         self.ankaApp = chat.Anka()
         self.main_w = tkinter.Tk()
         self.anka_w = tkinter.Tk()
+        #終了処理
+        self.main_w.protocol("WM_DELETE_WINDOW",self.closeAllwindow)
+        self.anka_w.protocol("WM_DELETE_WINDOW",self.closeAllwindow)
         self.GraphicElements = []
         self.GraphicButtons = []
         self.setup()
@@ -44,7 +47,9 @@ class GUI:
     def setup(self):
         self.main_w.title("AnkaChan☆ controller")
         self.anka_w.title("AnkaChan☆")
-        #self.main_w.iconbitmap(r"")
+        iconame = r"3.ico"
+        self.main_w.iconbitmap(iconame)
+        self.anka_w.iconbitmap(iconame)
         self.main_w.geometry("500x240")
         self.anka_w.geometry("500x240")
 
@@ -88,31 +93,32 @@ class GUI:
     def createWidget_sub(self):
         self.anka_w_frm = ttk.Frame(self.anka_w)
         self.anka_w_frm.grid(column=0,row=0,sticky=tkinter.NSEW,padx=5,pady=10)
-        self.L1 = ttk.Label(self.anka_frm,text="備考")
+        self.L1 = ttk.Label(self.anka_frm,text="内容")
         self.L2 = ttk.Label(self.anka_frm,text="安価")
         self.L3 = ttk.Label(self.anka_frm,text="追加")
-        self.sub_L1 = ttk.Label(self.anka_w_frm,text="備考")
+        self.sub_L1 = ttk.Label(self.anka_w_frm,text="内容")
         self.sub_L2 = ttk.Label(self.anka_w_frm,text="安価")
-    #def mainloop(self):
 
     def grid_sub(self):
         self.sub_L1.grid(column=0,row=0)
         self.sub_L2.grid(column=1,row=0)
 
     def mainloop(self):
-        self.main_w.mainloop()
         self.anka_w.mainloop()
+        self.main_w.mainloop()
+
     def getHash(self):
         t_today = datetime.now()
-        s_today = t_today.strftime('%Y/%m/%d %H:%M*%S')
+        s_today = t_today.strftime('%Y/%m/%d %H:%M*%S.%f')
         crypto = hashlib.sha256(s_today.encode('utf-8')).hexdigest()
+        time.sleep(0.001)
         return crypto
 
     def ask_url(self):
         url = self.url_input.get()
         state = self.ankaApp.setUrl(url)
         if state == None:
-            messagebox.showerror("エラー","無効な配信idです")
+            messagebox.showerror("エラー","無効な配信urlです")
         else:
             messagebox.showinfo("成功","接続成功")
             self.ankaApp.start()
@@ -137,9 +143,34 @@ class GUI:
         text = self.textinput.get()
         ank = self.ankainput.get()
         hashs = self.getHash()
-        if not ank.isdecimal():
-            messagebox.showerror("エラー","数値を入力してください")
-            return 0
+        anks = []
+        if "-" in ank:
+            #if list
+            listank = ank.split("-")
+            if len(listank) != 2:
+                messagebox.showerror("エラー","正しい書式で入力してください")
+                return 0
+            for a in listank:
+                if not a.isdecimal():
+                    messagebox.showerror("エラー","数値を入力してください")
+                    return 0
+            listank = list(map(int,listank))
+            strt = listank[0]
+            end = listank[1]+1
+            if strt >= end:
+                messagebox.showerror("エラー","正しい範囲を入力してください")
+                return 0
+            anks = range(strt,end)
+        else:
+            if not ank.isdecimal():
+                messagebox.showerror("エラー","数値を入力してください")
+                return 0
+            anks.append(int(ank))
+        for ank in anks:
+            hashs = self.getHash()
+            self.addColumsFunction(text,ank,hashs)
+
+    def addColumsFunction(self,text,ank,hashs):
         texts = ttk.Label(self.anka_w_frm,text=text+f": >>{ank}",font=("Noto Sans JP","15","bold"))
         ankas = ttk.Label(self.anka_w_frm,text="--",font=("Noto Sans JP","15","bold"))
         reAnka = ttk.Button(self.anka_w_frm,text="再",width=3,command=lambda:self.reAnka(hashs))
@@ -196,4 +227,9 @@ class GUI:
 
     def reAnkafunc(self,hash,num):
         self.ankaApp.changeAnka(int(num),hash)
+    
+    def closeAllwindow(self):
+        if messagebox.askokcancel("Quit","本当に終了しますか？"):
+            self.main_w.destroy()
+            self.anka_w.destroy()
 #R_OjqP8Et3w
