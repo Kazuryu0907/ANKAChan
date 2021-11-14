@@ -47,7 +47,7 @@ class GUI:
     def setup(self):
         self.main_w.title("AnkaChan☆ controller")
         self.anka_w.title("AnkaChan☆")
-        iconame = r"3.ico"
+        iconame = r"ankochan.ico"
         self.main_w.iconbitmap(iconame)
         self.anka_w.iconbitmap(iconame)
         self.main_w.geometry("500x240")
@@ -104,9 +104,8 @@ class GUI:
         self.sub_L2.grid(column=1,row=0)
 
     def mainloop(self):
-        self.anka_w.mainloop()
         self.main_w.mainloop()
-
+        self.anka_w.mainloop()
     def getHash(self):
         t_today = datetime.now()
         s_today = t_today.strftime('%Y/%m/%d %H:%M*%S.%f')
