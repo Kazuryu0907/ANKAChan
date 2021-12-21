@@ -13,7 +13,7 @@
 範囲指定、再安価などの機能がついています。
 絵師さんなどどうでしょうか。  
 
-!(controller.png) [media/cont.png]
+![cont.png](https://github.com/Kazuryu0907/ANKAChan/blob/toPic/cont.png)
 # 使い方
 1. 起動後、`配信のurl`を入力し接続をクリックします
 2. 接続成功のダイアログが出れば成功です
