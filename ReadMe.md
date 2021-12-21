@@ -13,7 +13,9 @@
 範囲指定、再安価などの機能がついています。
 絵師さんなどどうでしょうか。  
 
-![cont.png](https://github.com/Kazuryu0907/ANKAChan/blob/toPic/cont.png)
+![cont.png](https://github.com/Kazuryu0907/ANKAChan/raw/toPic/cont.png)
+![2.png](https://github.com/Kazuryu0907/ANKAChan/raw/toPic/2.png)  
+
 # 使い方
 1. 起動後、`配信のurl`を入力し接続をクリックします
 2. 接続成功のダイアログが出れば成功です
