@@ -1,6 +1,6 @@
 *****************************************************************  
 【ソフト名】 AnkaChan☆(あんかちゃん)  
-【バージョン】 1.00  
+【バージョン】 v1.0.0  
 【種別】 フリーウェア  
 【動作環境】 Windows10(その他未確認)  
 【作者名】 kazuryu  
@@ -12,8 +12,9 @@
 このソフトはYoutube liveのコメント欄で安価ができるソフトウェアです。  
 範囲指定、再安価などの機能がついています。
 絵師さんなどどうでしょうか。  
-
+`MainWindow`
 ![cont.png](https://github.com/Kazuryu0907/ANKAChan/raw/toPic/cont.png)
+`SubWindow`
 ![2.png](https://github.com/Kazuryu0907/ANKAChan/raw/toPic/2.png)  
 
 # 使い方
@@ -27,5 +28,5 @@
 この場合1-5まで5つ生成されます
 
 
-更新履歴
+更新履歴  
 None
