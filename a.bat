@@ -1,2 +1,0 @@
-Ankachan.exe
-pause
