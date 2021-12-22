@@ -12,9 +12,9 @@
 このソフトはYoutube liveのコメント欄で安価ができるソフトウェアです。  
 範囲指定、再安価などの機能がついています。
 絵師さんなどどうでしょうか。  
-`MainWindow`
-![cont.png](https://github.com/Kazuryu0907/ANKAChan/raw/toPic/cont.png)
-`SubWindow`
+`MainWindow`  
+![cont.png](https://github.com/Kazuryu0907/ANKAChan/raw/toPic/cont.png)  
+`SubWindow`  
 ![2.png](https://github.com/Kazuryu0907/ANKAChan/raw/toPic/2.png)  
 
 # 使い方
